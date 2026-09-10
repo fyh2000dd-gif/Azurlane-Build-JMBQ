@@ -46,6 +46,15 @@ jobs:
           chmod +x merge_build.sh
           ./merge_build.sh "${{ github.event.inputs.server_name }}" "${{ github.event.inputs.download_url }}"
 
+       # 新增：当构建失败时，打包 DECODE_Output 目录供下载排查
+      - name: Upload DECODE_Output on failure
+        if: failure() # 只有在上面步骤失败时才执行
+        uses: actions/upload-artifact@v4
+        with:
+          name: DECODE_Output_Debug
+          path: DECODE_Output/
+          retention-days: 1 # 只保留1天，避免占用仓库空间
+
       # 步骤6: 动态拼接 Release 简介
       - name: Generate Release Notes
         run: |
