@@ -93,11 +93,7 @@ DOWNLOAD_APKTOOL() {
 
     echo "正在下载Apktool..."
     # 新增判断：修复TW在新版Apktool反编译 Androidmanifest.xml 时报错
-    if [ "${GAME_SERVER}" == "TW" ]; then
-    API_URL="https://api.github.com/repos/${OWNER}/${REPO}/releases/tags/v2.12.1"
-    else
-    API_URL="https://api.github.com/repos/${OWNER}/${REPO}/releases/latest"
-    fi
+    API_URL="https://api.github.com/repos/iBotPeaches/Apktool/releases/tags/v2.9.3"
     
     local API_RESPONSE=$(curl -s "${API_URL}")
     local DOWNLOAD_LINK=$(echo "${API_RESPONSE}" | jq -r '.assets[] | select(.name | endswith(".jar")) | .browser_download_url' | head -n 1)
@@ -235,7 +231,7 @@ DECODE_APK() {
     fi
     
     echo "APK反编译: ${APK_TO_DECODE}"
-    java -jar "${DOWNLOAD_DIR}/apktool.jar" d -f "${APK_TO_DECODE}" -o "${DOWNLOAD_DIR}/DECODE_Output"
+    java -jar "${DOWNLOAD_DIR}/apktool.jar" d --no-debug-info -f "${APK_TO_DECODE}" -o "${DOWNLOAD_DIR}/DECODE_Output"
     if [ $? -ne 0 ]; then
         echo "错误: APK 反编译失败！"
         exit 1
