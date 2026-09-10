@@ -265,7 +265,7 @@ PATCH_APK() {
     local MAX_CLASS_NUM=$(find "${DOWNLOAD_DIR}/DECODE_Output/" -maxdepth 1 -type d -name "smali_classes*" 2>/dev/null | sed 's/.*smali_classes//' | sort -n | tail -1)
     MAX_CLASS_NUM=${MAX_CLASS_NUM:-3}
     local NEW_CLASS_NUM=$((MAX_CLASS_NUM + 1))
-    local NEW_SMALI_DIR="smali_classes${NEW_CLASS_NUM}"
+    local NEW_SMALI_DIR="smali_classes99"
     
     # 移除maxdepth限制，确保能找到所有smali_classes目录
     local SRC_DIR=$(find "${DOWNLOAD_DIR}/JMBQ" -type d -name "smali_classes*" 2>/dev/null | head -1)
